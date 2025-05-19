@@ -33,7 +33,7 @@ func NewCredentialProvider(plugin CredentialProvider) *ExecPlugin {
 }
 
 type CredentialProvider interface {
-	GetCredentials(ctx context.Context, image string, args []string) (response *v1.CredentialProviderResponse, err error)
+	GetCredentials(ctx context.Context, request *v1.CredentialProviderRequest, args []string) (response *v1.CredentialProviderResponse, err error)
 }
 
 func (e *ExecPlugin) Run(ctx context.Context) error {
@@ -68,7 +68,7 @@ func (e *ExecPlugin) runPlugin(ctx context.Context, r io.Reader, w io.Writer, ar
 			return errors.New("image in plugin request was empty")
 		}
 
-		response, err := e.plugin.GetCredentials(ctx, request.Image, args)
+		response, err := e.plugin.GetCredentials(ctx, request, args)
 
 		if err != nil {
 			return err

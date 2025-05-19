@@ -1,0 +1,26 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  "KubeletServiceAccountTokenForCredentialProviders": true
+nodes:
+- role: control-plane
+  image: docker.io/kindest/node:v1.33.0
+  extraMounts:
+  - hostPath: $QUAY_CREDENTIAL_PROVIDER_PROJECT_PATH/examples/kind/demo/CredentialProviderConfig.yaml
+    containerPath: /etc/kubernetes/image-credential-provider-config.yaml
+  - hostPath: $QUAY_CREDENTIAL_PROVIDER_PROJECT_PATH/bin
+    containerPath: /etc/kubernetes/image-credential-provider/
+kubeadmConfigPatches:
+- |
+  kind: InitConfiguration
+  nodeRegistration:
+    kubeletExtraArgs:
+      image-credential-provider-config: /etc/kubernetes/image-credential-provider-config.yaml
+      image-credential-provider-bin-dir: /etc/kubernetes/image-credential-provider/
+- |
+  kind: ClusterConfiguration
+  apiServer:
+    extraArgs:
+      service-account-issuer: $OIDC_ISSUER_URL
+  metadata:
+    name: config

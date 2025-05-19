@@ -1,3 +1,4 @@
 bin
-butane/files/authfile.json
-machineconfigs/99-quay-credential-provider-worker.yaml
+dist/
+.DS_Store
+demo/

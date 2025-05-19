@@ -8,10 +8,7 @@ GOARCH ?= $(shell go env GOARCH)
 GOPROXY ?= $(shell go env GOPROXY)
 LDFLAGS ?= -w -s
 ARCHITECTURES=amd64 arm64
-PLATFORMS=darwin linux
-CONTAINER_RUNTIME ?= podman
-# OCP 4.15.19 (AWS)
-RHCOS_BASE_IMAGE ?= quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a0feb7d16d7885ee1a363a9a1cba359ac4365d6a25ba4433afe9d737f838cf93
+PLATFORMS=darwin linux windows
 
 .PHONY: build
 build:

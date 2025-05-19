@@ -1,4 +1,0 @@
-ARG RHCOS_BASE_IMAGE=quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a0feb7d16d7885ee1a363a9a1cba359ac4365d6a25ba4433afe9d737f838cf93
-FROM $RHCOS_BASE_IMAGE
-
-ADD bin/quay-credential-provider-linux-amd64 /usr/libexec/kubelet-image-credential-provider-plugins/quay-credential-provider
